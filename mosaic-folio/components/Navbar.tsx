@@ -24,7 +24,6 @@ export default function Navbar() {
   return (
     <>
       <nav className="flex items-center justify-between px-6 py-3 bg-[#F5A642]">
-        {/* Logo à gauche */}
         <Link href="/" className="hover:opacity-90 transition shrink-0">
           <Image 
             src="/logo.svg" 
@@ -36,9 +35,7 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Select au centre et bouton à droite */}
         <div className="flex items-center gap-4">
-          {/* Select pour filtrer les projets */}
           <select
             value={currentFilter}
             onChange={handleFilterChange}
@@ -51,7 +48,6 @@ export default function Navbar() {
             <option value="4">Adaopte</option>
           </select>
 
-          {/* Bouton soumettre projet */}
           <button
             onClick={() => setShowForm(true)}
             className="px-6 py-2 bg-[#1a1a2e] text-white font-semibold rounded-md hover:bg-[#252541] transition focus:outline-none focus:ring-2 focus:ring-[#1a1a2e]"
@@ -61,7 +57,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Formulaire de soumission */}
       {showForm && <ProjectSubmitForm onClose={() => setShowForm(false)} />}
     </>
   );

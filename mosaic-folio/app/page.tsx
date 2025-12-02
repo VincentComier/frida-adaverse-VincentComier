@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ProjectCard from "@/components/ProjectCard";
+import { projectNames } from "@/lib/projectConst";
 
 interface Project {
   id: number;
   title: string;
   github: string;
   demolink: string;
-  thumbnail: string | null;
   createdAt: string;
   projectId: number;
   projectName: number;
@@ -50,13 +50,6 @@ export default function Home() {
     }
   };
 
-  const projectNames: { [key: string]: string } = {
-    "1": "Ada Check Events",
-    "2": "Ada Quiz",
-    "3": "Adaence",
-    "4": "Adaopte",
-  };
-
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -73,7 +66,7 @@ export default function Home() {
 
         <p className="text-center text-gray-600 mb-8">
           {filteredProjects.length} projet{filteredProjects.length > 1 ? "s" : ""} affiché{filteredProjects.length > 1 ? "s" : ""}
-          {selectedProject && ` - ${projectNames[selectedProject]}`}
+          {selectedProject && ` - ${projectNames[Number(selectedProject)]}`}
         </p>
 
         {loading && (

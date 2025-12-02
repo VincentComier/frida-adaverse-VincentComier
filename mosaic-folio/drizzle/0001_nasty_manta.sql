@@ -1,0 +1,1 @@
+ALTER TABLE "projects-details" DROP COLUMN "thumbnail";

@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { projectsDetails, students, projects } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -7,6 +6,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const projectId = searchParams.get("projectId");
+    const id = searchParams.get("id");
 
     // Construire la requête de base
     const queryBuilder = db
@@ -15,9 +15,7 @@ export async function GET(request: Request) {
         title: projectsDetails.title,
         github: projectsDetails.github,
         demolink: projectsDetails.demolink,
-        thumbnail: projectsDetails.thumbnail,
         createdAt: projectsDetails.createdAt,
-        updatedAt: projectsDetails.updatedAt,
         projectId: projectsDetails.projectId,
         projectName: projects.name,
         gitUsername: students.gitUsername,
@@ -27,18 +25,23 @@ export async function GET(request: Request) {
       .innerJoin(students, eq(projectsDetails.gitUsernameId, students.id))
       .innerJoin(projects, eq(projectsDetails.projectId, projects.id));
 
-    // Appliquer le filtre si projectId est fourni
-    const allProjects = projectId
-      ? await queryBuilder.where(eq(projectsDetails.projectId, Number(projectId)))
-      : await queryBuilder;
+    // Appliquer les filtres
+    let allProjects;
+    if (id) {
+      allProjects = await queryBuilder.where(eq(projectsDetails.id, Number(id)));
+    } else if (projectId) {
+      allProjects = await queryBuilder.where(eq(projectsDetails.projectId, Number(projectId)));
+    } else {
+      allProjects = await queryBuilder;
+    }
 
-    return NextResponse.json({
+    return Response.json({
       projects: allProjects,
       count: allProjects.length,
     });
   } catch (error) {
     console.error("Erreur lors de la récupération des projets:", error);
-    return NextResponse.json(
+    return Response.json(
       { error: "Erreur serveur lors de la récupération des projets" },
       { status: 500 }
     );
@@ -52,7 +55,7 @@ export async function POST(request: Request) {
 
     // Validation des champs requis
     if (!title || !github || !demolink || !gitUsername || !projectId) {
-      return NextResponse.json(
+      return Response.json(
         { error: "Tous les champs sont requis" },
         { status: 400 }
       );
@@ -82,13 +85,12 @@ export async function POST(request: Request) {
         title,
         github,
         demolink,
-        thumbnail: null, // Sera ajouté plus tard si nécessaire
         gitUsernameId: student.id,
         projectId: Number(projectId),
       })
       .returning();
 
-    return NextResponse.json(
+    return Response.json(
       {
         message: "Projet soumis avec succès",
         project: newProject[0],
@@ -97,7 +99,7 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("Erreur lors de la soumission du projet:", error);
-    return NextResponse.json(
+    return Response.json(
       { error: "Erreur serveur lors de la soumission du projet" },
       { status: 500 }
     );

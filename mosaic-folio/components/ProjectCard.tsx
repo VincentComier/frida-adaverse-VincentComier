@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
+import { projectNames } from "@/lib/projectConst";
+
 interface Project {
   id: number;
   title: string;
   github: string;
   demolink: string;
-  thumbnail: string | null;
   createdAt: string;
   projectId: number;
   projectName: number;
@@ -16,16 +18,12 @@ interface ProjectCardProps {
   project: Project;
 }
 
-const projectNames: { [key: number]: string } = {
-  1: "Ada Check Events",
-  2: "Ada Quiz",
-  3: "Adaence",
-  4: "Adaopte",
-};
-
 export default function ProjectCard({ project }: ProjectCardProps) {
   const projectName = projectNames[project.projectName] || `Projet ${project.projectName}`;
-  const imageUrl = project.thumbnail || `https://github.com/${project.gitUsername}/${project.title}/blob/main/thumbnail.png?raw=true`;
+  
+  // Récupérer le thumbnail depuis GitHub
+  const repoName = project.github.split('/').pop()?.replace('.git', '') || project.title;
+  const imageUrl = `https://raw.githubusercontent.com/${project.gitUsername}/${repoName}/main/thumbnail.png`;
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -35,7 +33,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           alt={project.title}
           className="w-full h-full object-cover"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = "https://via.placeholder.com/400x300?text=No+Image";
+            (e.target as HTMLImageElement).src = "/no-thumbnail.png";
           }}
         />
       </div>
@@ -57,24 +55,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           Créé le {new Date(project.createdAt).toLocaleDateString("fr-FR")}
         </p>
 
-        <div className="flex gap-3">
-          <a
-            href={project.demolink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 px-4 py-2 bg-amber-500 text-white text-center rounded-md hover:bg-amber-600 transition font-semibold"
-          >
-            Voir la démo
-          </a>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 px-4 py-2 bg-gray-800 text-white text-center rounded-md hover:bg-gray-900 transition font-semibold"
-          >
-            GitHub
-          </a>
-        </div>
+        <Link
+          href={`/${project.id}`}
+          className="block w-full px-4 py-2 bg-amber-500 text-white text-center rounded-md hover:bg-amber-600 transition font-semibold"
+        >
+          Détails
+        </Link>
       </div>
     </div>
   );
