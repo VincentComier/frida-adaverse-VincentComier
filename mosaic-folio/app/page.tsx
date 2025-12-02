@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ProjectCard from "@/components/ProjectCard";
 import { projectNames } from "@/lib/projectConst";
@@ -16,7 +16,7 @@ interface Project {
   gitUsername: string;
 }
 
-export default function Home() {
+function HomeContent() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -92,5 +92,13 @@ export default function Home() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="text-center py-12">Chargement...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
