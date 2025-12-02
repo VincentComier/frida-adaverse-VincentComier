@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import ProjectCard from "@/components/ProjectCard";
 import { projectNames } from "@/lib/projectConst";
 
+export const dynamic = 'force-dynamic';
+
 interface Project {
   id: number;
   title: string;
@@ -16,7 +18,7 @@ interface Project {
   gitUsername: string;
 }
 
-function HomeContent() {
+export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -92,13 +94,5 @@ function HomeContent() {
         )}
       </div>
     </main>
-  );
-}
-
-export default function Home() {
-  return (
-    <Suspense fallback={<div className="text-center py-12">Chargement...</div>}>
-      <HomeContent />
-    </Suspense>
   );
 }
