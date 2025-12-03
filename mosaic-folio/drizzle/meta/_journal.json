@@ -15,6 +15,13 @@
       "when": 1764683290584,
       "tag": "0001_nasty_manta",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764768777137,
+      "tag": "0002_shocking_elektra",
+      "breakpoints": true
     }
   ]
 }

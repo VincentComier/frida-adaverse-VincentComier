@@ -65,7 +65,7 @@ export default function ProjectSubmitForm({ onClose }: ProjectSubmitFormProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-900 mb-1">
               Titre *
             </label>
             <input
@@ -74,13 +74,13 @@ export default function ProjectSubmitForm({ onClose }: ProjectSubmitFormProps) {
               required
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-600 text-gray-900"
               placeholder="Mon super projet"
             />
           </div>
 
           <div>
-            <label htmlFor="github" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="github" className="block text-sm font-medium text-gray-900 mb-1">
               URL GitHub *
             </label>
             <input
@@ -89,13 +89,13 @@ export default function ProjectSubmitForm({ onClose }: ProjectSubmitFormProps) {
               required
               value={formData.github}
               onChange={(e) => setFormData({ ...formData, github: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-600 text-gray-900"
               placeholder="https://github.com/username/repo"
             />
           </div>
 
           <div>
-            <label htmlFor="demolink" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="demolink" className="block text-sm font-medium text-gray-900 mb-1">
               URL de démo *
             </label>
             <input
@@ -104,13 +104,13 @@ export default function ProjectSubmitForm({ onClose }: ProjectSubmitFormProps) {
               required
               value={formData.demolink}
               onChange={(e) => setFormData({ ...formData, demolink: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-600 text-gray-900"
               placeholder="https://mon-projet.vercel.app"
             />
           </div>
 
           <div>
-            <label htmlFor="gitUsername" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="gitUsername" className="block text-sm font-medium text-gray-900 mb-1">
               Nom d'utilisateur GitHub *
             </label>
             <input
@@ -119,13 +119,13 @@ export default function ProjectSubmitForm({ onClose }: ProjectSubmitFormProps) {
               required
               value={formData.gitUsername}
               onChange={(e) => setFormData({ ...formData, gitUsername: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder:text-gray-600 text-gray-900"
               placeholder="votre-username"
             />
           </div>
 
           <div>
-            <label htmlFor="projectId" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="projectId" className="block text-sm font-medium text-gray-900 mb-1">
               Projet Ada *
             </label>
             <select
@@ -133,7 +133,7 @@ export default function ProjectSubmitForm({ onClose }: ProjectSubmitFormProps) {
               required
               value={formData.projectId}
               onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-900"
             >
               <option value="">Sélectionnez un projet</option>
               <option value="1">Ada Check Events</option>

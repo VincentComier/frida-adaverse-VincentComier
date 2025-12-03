@@ -48,6 +48,13 @@ export default function Navbar() {
             <option value="4">Adaopte</option>
           </select>
 
+          <Link
+            href="/admin"
+            className="px-6 py-2 bg-emerald-600 text-white font-semibold rounded-md hover:bg-emerald-700 transition focus:outline-none focus:ring-2 focus:ring-emerald-600"
+          >
+            À valider
+          </Link>
+
           <button
             onClick={() => setShowForm(true)}
             className="px-6 py-2 bg-[#1a1a2e] text-white font-semibold rounded-md hover:bg-[#252541] transition focus:outline-none focus:ring-2 focus:ring-[#1a1a2e]"

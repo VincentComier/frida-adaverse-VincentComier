@@ -19,7 +19,7 @@ export const projectsDetails = pgTable('projects-details', {
   github: text('github').notNull(),
   demolink: text('demolink').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at'),
   gitUsernameId: integer('git_username_id').notNull().references(() => students.id),
   projectId: integer('project_id').notNull().references(() => projects.id),
 });

@@ -1,14 +1,14 @@
 import { db } from "@/db";
 import { projectsDetails, students, projects } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, isNull, isNotNull } from "drizzle-orm";
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const projectId = searchParams.get("projectId");
     const id = searchParams.get("id");
+    const pending = searchParams.get("pending");
 
-    // Construire la requête de base
     const queryBuilder = db
       .select({
         id: projectsDetails.id,
@@ -25,14 +25,17 @@ export async function GET(request: Request) {
       .innerJoin(students, eq(projectsDetails.gitUsernameId, students.id))
       .innerJoin(projects, eq(projectsDetails.projectId, projects.id));
 
-    // Appliquer les filtres
     let allProjects;
     if (id) {
       allProjects = await queryBuilder.where(eq(projectsDetails.id, Number(id)));
     } else if (projectId) {
       allProjects = await queryBuilder.where(eq(projectsDetails.projectId, Number(projectId)));
+    } else if (pending === "true") {
+      // Récupérer seulement les projets en attente (updated_at = null)
+      allProjects = await queryBuilder.where(isNull(projectsDetails.updatedAt));
     } else {
-      allProjects = await queryBuilder;
+      // Par défaut, récupérer seulement les projets validés (updated_at not null)
+      allProjects = await queryBuilder.where(isNotNull(projectsDetails.updatedAt));
     }
 
     return Response.json({
